@@ -36,7 +36,7 @@
 #include "anomaly_detection_robot/ADRobot.h"
 
 ADRobot::ADRobot() {
-    ROS_INFO_STREAM("Created ADRobot object");
+    ROS_INFO("Created ADRobot object");
     // add subscribers and publishers
 }
 

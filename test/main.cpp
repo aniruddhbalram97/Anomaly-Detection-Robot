@@ -25,24 +25,34 @@
  * POSSIBILITY OF SUCH DAMAGE.
  ********************************************************************/
 /**
- *  @file    navigation.h
+ *  @file    main.cpp
  *  @author  Smit Dumore
  *  @date    11/30/2022
  *  @version 0.1
- *  @brief  
+ *  @brief 
  *
  */
 
-#include <geometry_msgs/Point.h>
+#include <gtest/gtest.h>
 #include <ros/ros.h>
+#include "anomaly_detection_robot/navigation.h"
 
-class Navigation {
- public:
-    Navigation();
-    bool go_to_location();
-    bool home_to_location();
-    bool location_to_home();
-    
- private:
-    std::vector<geometry_msgs::Point> map_locations;
-};
+
+TEST(test_navigation_class, test_one) {
+    Navigation nav;
+    int a = nav.location_to_home();
+
+    std::cout << a;
+    EXPECT_EQ(a, 0);
+    //EXPECT_EQ(1,1);
+}
+
+
+
+int main(int argc, char **argv) {
+    ros::init(argc, argv, "gtest_node");
+    std::shared_ptr<ros::NodeHandle> nh;
+    nh.reset(new ros::NodeHandle);
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
