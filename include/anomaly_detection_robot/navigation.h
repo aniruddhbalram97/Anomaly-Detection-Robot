@@ -37,10 +37,10 @@
 #include <geometry_msgs/Pose.h>
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/PoseStamped.h>
-#include <geometry_msgs/PoseWithCovarianceStamped.h>
 #include <actionlib/client/simple_action_client.h>
 #include <nav_msgs/Odometry.h>
 #include <ros/ros.h>
+#include <geometry_msgs/PoseWithCovarianceStamped.h>
 
 /**
  * @brief Class navigation
