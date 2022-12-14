@@ -75,8 +75,8 @@ void Navigation::go_to_location() {
 }
 
 void Navigation::populate_locations() {
-    std::vector<double> map_x = {0.5, 0.5, -0.5, -0.5, -1.0 , -1.0};
-    std::vector<double> map_y = {0.5, -0.5, -0.5, 0.5, -0.5, -0.5};
+    std::vector<double> map_x = {0.5, 0.5, -0.5, -0.5, -1.0 };
+    std::vector<double> map_y = {0.5, -0.5, -0.5, 0.5, -0.5};
     int size = map_x.size();
 
     for(int i=0; i < size; i++) {
