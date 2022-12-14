@@ -15,16 +15,11 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@v2
-
     - name: Install Prerequisites
       run: |
         bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash; \
         apt-get update && rosdep update; \
         rosdep install --from-paths src --ignore-src -y'
-    - name: Build Workspace
-      run: |
-        bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash; \
-        catkin_make'
     - name: Run Tests
       run: |
         bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash; \
