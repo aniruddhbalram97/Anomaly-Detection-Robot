@@ -49,22 +49,24 @@ target_link_libraries(ADRobot_node
 
 #add_library(nav_library src/navigation.cpp)
 
-# if(CATKIN_ENABLE_TESTING)
-#   find_package(rostest REQUIRED)
-#   add_rostest_gtest(
-#     the_rostest 
-#     test/all_tests.test 
-#     test/main.cpp)
+if(CATKIN_ENABLE_TESTING)
+   find_package(rostest REQUIRED)
+   add_rostest_gtest(
+     the_rostest 
+     test/all_tests.test 
+     test/main.cpp
+     test/navigation_test.cpp
+     test/ADRobot_test.cpp)
 
-#   target_link_libraries(
-#     the_rostest 
-#     ${catkin_LIBRARIES}
-#     nav_library
-#     perception_library
-#     adr_library
-#     anomaly_library
-#   )
-# endif()
+  target_link_libraries(
+     the_rostest 
+     ${catkin_LIBRARIES}
+     nav_library
+     perception_library
+     adr_library
+     anomaly_library
+   )
+ endif()
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
