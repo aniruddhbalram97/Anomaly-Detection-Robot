@@ -34,8 +34,8 @@ jobs:
           sudo apt update
           sudo apt install -y git
           sudo apt install -y python3-pip
-          sudo apt install -y python$PYTHON_VERSION-osrf-pycommon
-          sudo apt install -y python$PYTHON_VERSION-catkin-tools
+          sudo apt install -y python3-osrf-pycommon
+          sudo apt install -y python3-catkin-tools
           python$PYTHON_VERSION -m pip install --upgrade pip
           python3 -m pip install --upgrade pip3
       - name: Create workspace
