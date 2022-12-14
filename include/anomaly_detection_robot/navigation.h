@@ -32,17 +32,38 @@
  *  @brief  
  *
  */
-
+#pragma once
 #include <geometry_msgs/Point.h>
+#include <geometry_msgs/Pose.h>
+#include <geometry_msgs/Twist.h>
+#include <geometry_msgs/PoseStamped.h>
+#include <geometry_msgs/PoseWithCovarianceStamped.h>
+#include <actionlib/client/simple_action_client.h>
+#include <nav_msgs/Odometry.h>
 #include <ros/ros.h>
 
+/**
+ * @brief Class navigation
+ * 
+ */
 class Navigation {
  public:
-    Navigation();
-    bool go_to_location();
-    bool home_to_location();
-    bool location_to_home();
+    explicit Navigation(ros::NodeHandle);
+    
+    void go_to_location();
+    void populate_locations();
+    bool navigation_status();
+    void pose_callback(const nav_msgs::Odometry &);
+
+    ros::Publisher move_base_goal_pub_;
+    ros::Subscriber pose_sub_;
+    int location_counter_ = -1;
+    const int location_size_ = 6;
     
  private:
-    std::vector<geometry_msgs::Point> map_locations;
+    std::vector<geometry_msgs::PoseStamped> map_locations;
+    geometry_msgs::Pose curr_pose_;
+    geometry_msgs::PoseStamped goal_pose_;
+
+    
 };
