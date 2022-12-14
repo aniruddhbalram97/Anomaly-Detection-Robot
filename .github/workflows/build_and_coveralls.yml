@@ -38,7 +38,7 @@ jobs:
           sudo apt install -y python$PYTHON_VERSION-osrf-pycommon
           sudo apt install -y python$PYTHON_VERSION-catkin-tools
           python$PYTHON_VERSION -m pip install --upgrade pip
-          python3 -m pip install --upgrade pip
+          python3 -m pip3 install --upgrade pip3
       - name: Create workspace
         run: |
           cd src
