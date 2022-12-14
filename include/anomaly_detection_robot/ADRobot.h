@@ -33,18 +33,34 @@
  *
  */
 
+#pragma once
 #include <ros/ros.h>
 #include "anomaly_detection_robot/navigation.h"
 #include "anomaly_detection_robot/detect_anomaly.h"
 #include "anomaly_detection_robot/perception.h"
 
+/**
+ * @brief ADRobot class
+ * 
+ */
 class ADRobot {
  public:
-    ADRobot();
+    explicit ADRobot(ros::NodeHandle);
     void run();
 
+    enum States {
+        INIT,
+        IDLE,
+        MOVING_TO_GOAL,
+        STOP,
+        PERCEPTION
+    };
+
  private:
-    Navigation navigator();
-    Perception detectObject();
-    Detect_anomaly detectAnomaly();
+    Navigation navigator;
+    Detect_anomaly detectAnomaly;
+
+    States state_;
+    ros::NodeHandle* nh_;
+
 };
