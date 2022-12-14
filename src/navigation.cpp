@@ -35,20 +35,74 @@
 
 #include "anomaly_detection_robot/navigation.h"
 
-Navigation::Navigation() {
-    ROS_INFO_STREAM("Navigation object created");
+/**
+ * @brief Construct a new Navigation:: Navigation object
+ * 
+ */
+Navigation::Navigation(ros::NodeHandle nh) {
+
+    ROS_INFO("Navigation object created");
+
+    location_counter_ = -1;
+
+    move_base_goal_pub_ = nh.advertise<geometry_msgs::PoseStamped>(
+                                        "/move_base_simple/goal", 10);
+    
+    pose_sub_ = nh.subscribe("/odom", 10, &Navigation::pose_callback, this);
+
+    populate_locations();
 }
 
-bool Navigation::go_to_location() {
+/**
+ * @brief Send robot to location
+ * 
+ * @return true 
+ * @return false 
+ */
+void Navigation::go_to_location() {
     //function to move to location
+
+    location_counter_++;
+
+    if(location_counter_ < map_locations.size()) {
+        geometry_msgs::PoseStamped curr_goal = map_locations[location_counter_];
+        move_base_goal_pub_.publish(curr_goal);
+        goal_pose_ = curr_goal;
+        ROS_INFO("New Goal Published");
+    }else{
+        ROS_ERROR("no goals left");
+    }
 }
 
-bool Navigation::home_to_location() {
-    //function to move from home to first locaiton
+void Navigation::populate_locations() {
+    std::vector<double> map_x = {0.5, 0.5, -0.5, -0.5, -1.0 , -1.0};
+    std::vector<double> map_y = {0.5, -0.5, -0.5, 0.5, -0.5, -0.5};
+    int size = map_x.size();
+
+    for(int i=0; i < size; i++) {
+        geometry_msgs::PoseStamped curr_pose;
+        curr_pose.header.frame_id = "map";
+        curr_pose.pose.position.x = map_x[i];
+        curr_pose.pose.position.y = map_y[i];
+        curr_pose.pose.orientation.w = 1.0;
+        curr_pose.pose.orientation.x = 0.0;
+        curr_pose.pose.orientation.y = 0.0;
+        curr_pose.pose.orientation.z = 0.0;
+        map_locations.push_back(curr_pose);
+    }
+
+    ROS_INFO("Locations populated");
 }
 
-bool Navigation::location_to_home() {
-    //function to move from last location to home
+bool Navigation::navigation_status() {
+
+    double x_sq = std::pow(curr_pose_.position.x - goal_pose_.pose.position.x, 2);
+    
+    double y_sq = std::pow(curr_pose_.position.y- goal_pose_.pose.position.y, 2);
+
+    double distance = std::sqrt(x_sq + y_sq);
+    
+    if (distance <= 0.1) return true;
     return false;
 }
 
