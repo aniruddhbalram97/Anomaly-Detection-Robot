@@ -35,10 +35,19 @@
 
 #include <anomaly_detection_robot/ADRobot.h>
 
+
 int main(int argc, char *argv[]) {
+    // start node
     ros::init(argc, argv, "ADRobot_node");
     ros::NodeHandle nh;
-    ADRobot ADR();
-    ros::spin();
+    ADRobot ADR(nh);
+
+    ros::Rate r(10);
+    while (ros::ok()) {
+        ADR.run();
+        r.sleep();
+        ros::spinOnce();
+    }
+
     return 0;
 }
