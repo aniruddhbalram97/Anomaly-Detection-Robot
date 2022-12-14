@@ -13,17 +13,18 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   geometry_msgs
   sensor_msgs
+  nav_msgs
 )
 
 
 catkin_package()
-#   INCLUDE_DIRS include
-#   LIBRARIES anomaly_detection_robot
-#   CATKIN_DEPENDS roscpp rospy std_msgs geometry_msgs sensor_msgs
-# )
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
+add_library(adr_library src/ADRobot.cpp)
 add_library(nav_library src/navigation.cpp)
+add_library(perception_library src/perception.cpp)
+add_library(anomaly_library src/detect_anomaly.cpp)
 
 include_directories(
   include
@@ -35,7 +36,10 @@ add_executable(ADRobot_node src/node.cpp)
 
 
 target_link_libraries(ADRobot_node
+  adr_library  
   nav_library
+  perception_library
+  anomaly_library
   ${catkin_LIBRARIES}
 )
 
@@ -45,21 +49,23 @@ target_link_libraries(ADRobot_node
 
 #add_library(nav_library src/navigation.cpp)
 
-if(CATKIN_ENABLE_TESTING)
-  find_package(rostest REQUIRED)
-  add_rostest_gtest(
-    the_rostest 
-    test/all_tests.test 
-    test/main.cpp)
+# if(CATKIN_ENABLE_TESTING)
+#   find_package(rostest REQUIRED)
+#   add_rostest_gtest(
+#     the_rostest 
+#     test/all_tests.test 
+#     test/main.cpp)
 
-  target_link_libraries(
-    the_rostest 
-    ${catkin_LIBRARIES}
-    nav_library
-  )
-endif()
+#   target_link_libraries(
+#     the_rostest 
+#     ${catkin_LIBRARIES}
+#     nav_library
+#     perception_library
+#     adr_library
+#     anomaly_library
+#   )
+# endif()
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-
 
