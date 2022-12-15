@@ -1,5 +1,5 @@
 /********************************************************************
- * Copyright (c) 2022 Smit Dumore
+ * Copyright (c) 2022 Aniruddh Balram
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,8 +26,8 @@
  ********************************************************************/
 /**
  *  @file    ADRobot.cpp
- *  @author  Smit Dumore
- *  @date    11/30/2022
+ *  @author  Aniruddh Balram
+ *  @date    12/10/2022
  *  @version 0.1
  *  @brief
  *
@@ -39,7 +39,7 @@
  * @brief Construct a new ADRobot::ADRobot object
  *
  */
-ADRobot::ADRobot(ros::NodeHandle nh) : navigator(nh), state_(INIT) {
+ADRobot::ADRobot(ros::NodeHandle nh) : navigator(nh), perception(nh), state_(INIT) {
   ROS_INFO("Created ADRobot object");
   // add subscribers and publishers
 }
@@ -68,7 +68,7 @@ void ADRobot::run() {
                 << navigator.location_size_ << "\n";
 
       if (navigator.navigation_status()) {
-        ROS_INFO("[MOVING TO GOAL] goal reached");
+        ROS_INFO("[MOVING TO GOAL] - goal reached");
         state_ = PERCEPTION;
         if (navigator.location_counter_ == navigator.location_size_) {
           state_ = STOP;
@@ -78,10 +78,10 @@ void ADRobot::run() {
 
     case PERCEPTION:
       if (detectAnomaly.is_anomaly()) {
-        ROS_ERROR("ANOMALY FOUND ..");
+        ROS_ERROR("[ANOMALY FOUND]");
 
       } else {
-        ROS_INFO("NO ANOMALY");
+        ROS_INFO("[NO ANOMALY]");
       }
 
       state_ = IDLE;
@@ -89,7 +89,7 @@ void ADRobot::run() {
       break;
 
     case STOP:
-      ROS_INFO("eND ,.............");
+      ROS_INFO("[END]");
       break;
   }
 }

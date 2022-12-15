@@ -1,5 +1,5 @@
 /********************************************************************
- * Copyright (c) 2022 Smit Dumore
+ * Copyright (c) 2022 Aniruddh Balram
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,8 +26,8 @@
  ********************************************************************/
 /**
  *  @file    perception.cpp
- *  @author  Smit Dumore
- *  @date    11/30/2022
+ *  @author  Aniruddh Balram
+ *  @date    12/10/2022
  *  @version 0.1
  *  @brief  
  *
@@ -35,6 +35,10 @@
 
 #include "anomaly_detection_robot/perception.h"
 
+
+Perception::Perception(ros::NodeHandle nh) {
+  ROS_INFO("Perception object created");
+}
 
 void Perception::camera_callback() {
     // recieve images from camera

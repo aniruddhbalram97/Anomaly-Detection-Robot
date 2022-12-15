@@ -60,7 +60,7 @@ class ADRobot {
  private:
     Navigation navigator;
     Detect_anomaly detectAnomaly;
-
+    Perception perception;
     States state_;
     ros::NodeHandle* nh_;
 
