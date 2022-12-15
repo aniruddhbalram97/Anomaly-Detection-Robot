@@ -119,6 +119,4 @@ bool Navigation::navigation_status() {
  */
 void Navigation::pose_callback(const nav_msgs::Odometry &pose) {
   curr_pose_ = pose.pose.pose;
-  // ROS_INFO("POSE X .. %f", curr_pose_.position.x);
-  // ROS_INFO("POSE Y .. %f", curr_pose_.position.y);
 }

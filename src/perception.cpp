@@ -29,42 +29,41 @@
  *  @authors  Aniruddh Balram, Smit Dumore, Badrinarayanan Raghunathan Srikumar
  *  @date    12/10/2022
  *  @version 0.3
- *  @brief  
+ *  @brief
  *
  */
 
 #include "anomaly_detection_robot/perception.h"
 
 /**
- * @brief Constructing Perception class. Also, instantiates ImageTransport 
+ * @brief Constructing Perception class. Also, instantiates ImageTransport
  * @param nh ros node handle
-*/
+ */
 Perception::Perception(ros::NodeHandle nh) : it(nh) {
   ROS_INFO("Perception object created");
-  sub = it.subscribe("/camera/rgb/image_raw", 1,
-  &Perception::camera_callback, this);
+  sub = it.subscribe("/camera/rgb/image_raw", 1, &Perception::camera_callback,
+                     this);
 }
 
 /**
- * @brief This callback is called continuously when the image data is published on "/camera/rgb/image_raw"
+ * @brief This callback is called continuously when the image data is published
+ * on "/camera/rgb/image_raw"
  * @param msg Contains image related data of type sensor_msgs::ImageConstPtr
-*/
+ */
 void Perception::camera_callback(const sensor_msgs::ImageConstPtr& msg) {
-    // recieve images from camera
-    try {
-        input_image = cv_bridge::toCvShare(msg, "bgr8")->image;
-    }
-    catch (cv_bridge::Exception& e) {
-        ROS_ERROR("Could not convert from '%s' to 'bgr8'.",
-        msg->encoding.c_str());
-    }
+  // recieve images from camera
+  try {
+    image = cv_bridge::toCvShare(msg, "bgr8")->image;
+  } catch (cv_bridge::Exception& e) {
+    ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
+  }
 }
 
 /**
  * @brief Implements a basic contouring algorithm for anomaly detection
- * @return bool 
-*/
-bool Perception::anomaly_detected() {
+ * @return bool
+ */
+bool Perception::anomaly_detected(cv::Mat& input_image) {
   cv::Mat gray_img;  // Create a gray scale image
   cv::cvtColor(input_image, gray_img, cv::COLOR_BGR2GRAY);
   // Now what needs to be done is apply
@@ -73,10 +72,11 @@ bool Perception::anomaly_detected() {
   cv::Mat thresholded_image;
   cv::Mat blur;
   cv::GaussianBlur(gray_img, blur, cv::Size(5, 5), 0);
-  cv::threshold(blur, thresholded_image, 0, 255,
-  cv::THRESH_BINARY + cv::THRESH_OTSU);  // Use Otsus binary thresholding
-  cv::findContours(thresholded_image, contours,
-  hierarchy_of_contours, cv::RETR_TREE, cv::CHAIN_APPROX_NONE);
+  cv::threshold(
+      blur, thresholded_image, 0, 255,
+      cv::THRESH_BINARY + cv::THRESH_OTSU);  // Use Otsus binary thresholding
+  cv::findContours(thresholded_image, contours, hierarchy_of_contours,
+                   cv::RETR_TREE, cv::CHAIN_APPROX_NONE);
   if (contours.size() > 1) {
     return true;
   } else {

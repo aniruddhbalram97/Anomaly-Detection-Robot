@@ -36,18 +36,20 @@
 #include "anomaly_detection_robot/ADRobot.h"
 
 /**
- * @brief Construct a new ADRobot::ADRobot object. 'navigator', 'perception' classes along with state_ are also instantiated
- * 
+ * @brief Construct a new ADRobot::ADRobot object. 'navigator', 'perception'
+ * classes along with state_ are also instantiated
+ *
  * @param nh It is the ros node handle which contains publisher/subscribe method
  *
  */
-ADRobot::ADRobot(ros::NodeHandle nh) : navigator(nh),
-perception(nh), state_(INIT) {
+ADRobot::ADRobot(ros::NodeHandle nh)
+    : navigator(nh), perception(nh), state_(INIT) {
   ROS_INFO("Created ADRobot object");
 }
 
 /**
- * @brief This function runs on loop continuously and calls various state machine parameters to move the object
+ * @brief This function runs on loop continuously and calls various state
+ * machine parameters to move the object
  *
  */
 void ADRobot::run() {
@@ -76,7 +78,7 @@ void ADRobot::run() {
       break;
 
     case PERCEPTION:
-      if (perception.anomaly_detected()) {
+      if (perception.anomaly_detected(perception.image)) {
         ROS_ERROR("[ANOMALY FOUND]");
 
       } else {
