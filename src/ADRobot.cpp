@@ -41,7 +41,8 @@
  * @param nh It is the ros node handle which contains publisher/subscribe method
  *
  */
-ADRobot::ADRobot(ros::NodeHandle nh) : navigator(nh), perception(nh), state_(INIT) {
+ADRobot::ADRobot(ros::NodeHandle nh) : navigator(nh),
+perception(nh), state_(INIT) {
   ROS_INFO("Created ADRobot object");
 }
 
