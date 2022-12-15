@@ -77,7 +77,7 @@ void ADRobot::run() {
       break;
 
     case PERCEPTION:
-      if (perception.is_anomaly()) {
+      if (perception.anomaly_detected()) {
         ROS_ERROR("[ANOMALY FOUND]");
 
       } else {
