@@ -41,9 +41,13 @@ class Perception {
  public:
     explicit Perception(ros::NodeHandle);
     void camera_callback(const sensor_msgs::ImageConstPtr&);
+    bool anomaly_detected();
     image_transport::ImageTransport it;
     image_transport::Subscriber sub;
 
  private:
     bool is_object_present = false;
+    cv::Mat input_image;
+    std::vector<std::vector<cv::Point>> contours;
+    std::vector<cv::Vec4i> hierarchy_of_contours;
 };

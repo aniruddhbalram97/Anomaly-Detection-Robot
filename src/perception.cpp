@@ -44,10 +44,27 @@ Perception::Perception(ros::NodeHandle nh) : it(nh) {
 void Perception::camera_callback(const sensor_msgs::ImageConstPtr& msg) {
     // recieve images from camera
     try{
-        cv::imshow("Image Display", cv_bridge::toCvShare(msg,"bgr8")->image);
+        input_image = cv_bridge::toCvShare(msg,"bgr8")->image;
     }
     catch (cv_bridge::Exception& e) {
         ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
     }
 }
 
+bool Perception::anomaly_detected() {
+   // Create a gray scale image
+   cv::Mat gray_img; 
+   cv::cvtColor(input_image, gray_img, cv::COLOR_BGR2GRAY);
+   // Now what needs to be done is apply binary thresholding so that the image only has 0 and 255 pixel intensity
+   cv::Mat thresholded_image;
+   cv::Mat blur;
+   cv::GaussianBlur(gray_img, blur, cv::Size(5,5), 0);
+   cv::threshold(blur, thresholded_image, 0, 255, cv::THRESH_BINARY + cv::THRESH_OTSU); // Use Otsus binary thresholding
+   cv::findContours(thresholded_image, contours, hierarchy_of_contours, cv::RETR_TREE, cv::CHAIN_APPROX_NONE);
+   if(contours.size() > 1) {
+      return true;
+   }
+   else {
+      return false;
+   }
+}
