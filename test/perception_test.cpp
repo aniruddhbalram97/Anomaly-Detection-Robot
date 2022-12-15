@@ -46,6 +46,11 @@
  * 
  */
 
-TEST(perception_class_test, test_mock) {
-EXPECT_EQ(1,1);
+TEST(perception_class_test, test_contour_function) {
+    ros :: NodeHandle nh;
+    Perception perception(nh);
+    cv::Mat img(100, 100, CV_8UC3);
+    cv::randu(img, cv::Scalar(0, 0, 0), cv::Scalar(255, 255, 255));
+    bool value = perception.anomaly_detected(img);
+    EXPECT_EQ(value, true);
 }
