@@ -27,7 +27,7 @@
 
 /**
  * @file ADRobot_test.cpp
- * @author Badrinarayanan Raghunathan Srikumar
+ * @authors Aniruddh Balram, Smit Dumore, Badrinarayanan Raghunathan Srikumar
  * @brief TEST stubs to test ADRobot class
  * @version 0.1
  * @date 2022-12-14

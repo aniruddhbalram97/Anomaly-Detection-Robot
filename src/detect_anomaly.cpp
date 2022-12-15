@@ -26,7 +26,7 @@
  ********************************************************************/
 /**
  *  @file    detect_anomaly.cpp
- *  @author  Aniruddh Balram
+ *  @author  Aniruddh Balram, Smit Dumore, Badrinarayanan Raghunathan Srikumar
  *  @date    12/10/2022
  *  @version 0.3
  *  @brief  

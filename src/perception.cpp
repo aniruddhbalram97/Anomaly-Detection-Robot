@@ -26,7 +26,7 @@
  ********************************************************************/
 /**
  *  @file    perception.cpp
- *  @author  Aniruddh Balram
+ *  @authors  Aniruddh Balram, Smit Dumore, Badrinarayanan Raghunathan Srikumar
  *  @date    12/10/2022
  *  @version 0.3
  *  @brief  

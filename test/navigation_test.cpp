@@ -27,7 +27,7 @@
 
 /**
  * @file navigation_test.cpp
- * @author Badrinarayanan Raghunathan Srikumar
+ * @author Aniruddh Balram, Smit Dumore, Badrinarayanan Raghunathan Srikumar
  * @brief Test blocks to test navigation class
  * @version 0.1
  * @date 2022-12-14
@@ -35,14 +35,6 @@
  * @copyright Copyright (c) 2022
  * 
  */
-
-
-
-
-
-
-
-
 
 #include <gtest/gtest.h>
 #include <ros/ros.h>

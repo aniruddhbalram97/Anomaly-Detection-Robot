@@ -26,7 +26,7 @@
  ********************************************************************/
 /**
  *  @file    main.cpp
- *  @author  Badrinarayanan Raghunathan Srikumar
+ *  @author  Aniruddh Balram, Smit Dumore, Badrinarayanan Raghunathan Srikumar
  *  @date    12/14/2022
  *  @version 0.1
  *  @brief Main function for testing
