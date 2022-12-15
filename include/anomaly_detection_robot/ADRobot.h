@@ -36,7 +36,6 @@
 #pragma once
 #include <ros/ros.h>
 #include "anomaly_detection_robot/navigation.h"
-#include "anomaly_detection_robot/detect_anomaly.h"
 #include "anomaly_detection_robot/perception.h"
 
 /**
@@ -59,7 +58,6 @@ class ADRobot {
 
  private:
     Navigation navigator;
-    Detect_anomaly detectAnomaly;
     Perception perception;
     States state_;
     ros::NodeHandle* nh_;

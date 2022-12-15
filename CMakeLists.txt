@@ -27,7 +27,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 add_library(adr_library src/ADRobot.cpp)
 add_library(nav_library src/navigation.cpp)
 add_library(perception_library src/perception.cpp)
-add_library(anomaly_library src/detect_anomaly.cpp)
 
 include_directories(
   include
@@ -43,7 +42,6 @@ target_link_libraries(ADRobot_node
   adr_library  
   nav_library
   perception_library
-  anomaly_library
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
 )
