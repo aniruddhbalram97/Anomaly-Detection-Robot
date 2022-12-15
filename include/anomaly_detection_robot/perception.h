@@ -39,8 +39,8 @@
 
 class Perception {
  public:
-    void camera_callback(sensor_msgs::ImageConstPtr&);
     explicit Perception(ros::NodeHandle);
+    void camera_callback(const sensor_msgs::ImageConstPtr&);
     image_transport::ImageTransport it;
     image_transport::Subscriber sub;
 

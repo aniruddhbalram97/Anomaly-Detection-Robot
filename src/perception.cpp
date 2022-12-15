@@ -41,7 +41,7 @@ Perception::Perception(ros::NodeHandle nh) : it(nh) {
   sub = it.subscribe("/camera/rgb/image_raw", 1, &Perception::camera_callback, this); 
 }
 
-void Perception::camera_callback(sensor_msgs::ImageConstPtr& msg) {
+void Perception::camera_callback(const sensor_msgs::ImageConstPtr& msg) {
     // recieve images from camera
     try{
         cv::imshow("Image Display", cv_bridge::toCvShare(msg,"bgr8")->image);
