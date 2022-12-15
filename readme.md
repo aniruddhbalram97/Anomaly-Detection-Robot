@@ -21,6 +21,9 @@ git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
 ```
 
+### AIP Sheet
+- Product Backlog Sheet [google sheet](https://docs.google.com/spreadsheets/d/1uHDDDbMvHY4QyDjH6F0JqCa6SoQ2CfuYaCJu3RNxHEI/edit#gid=438129087)
+- Sprint Planning Notes [google doc](https://docs.google.com/document/d/1wdccIWWXtUxuXXT_2JpvLoirFL0By40nLpI3DHsvV1o/edit)
 
 ### Presentation link
 https://docs.google.com/presentation/d/1BKFK73goBxVEZzWt95vCPfu6BDekYOlmda1Gdb-Nc90/edit?usp=sharing
@@ -33,7 +36,7 @@ https://drive.google.com/file/d/18zbLacLETwxDgiNdPukttsvHfr0zEX-X/view?usp=share
 ```
 cd <your ROS_ws>/src
 source ~/devel/setup.bash
-git clone https://github.com/Irdab2000/Anomaly-Detection-Robot.git
+git clone https://github.com/aniruddhbalram97/Anomaly-Detection-Robot.git
 cd ..
 catkin_make
 ```
@@ -61,14 +64,25 @@ cd <your ROS_ws>
 source ~/devel/setup.bash
 rosrun anomaly-detection-robot ADRobot_node
 ```
-### ROS Run TESTS
+### ROS Build TESTS
 - Open a new terminal
 ```
 cd <your ROS_ws>
 source ~/devel/setup.bash
 catkin_make tests
 ```
+### ROS Run TESTS
+- Open a new terminal
+```
+cd <your ROS_ws>
+rostest anomaly_detection_robot all_tests.test
+```
+### Generating Documentation
+- Run the following command in folder's root directory to generate new documentation
 
+```
+doxygen docs/doxygen_config.conf
+```
 ### cppcheck
 Run the following command from the root directory of your ROS package
 ```
@@ -84,3 +98,6 @@ Run the following command from the directory where the .cpp files are present(sr
 ```
 clang-format -style=Google -i your_file.cpp
 ```
+
+### Known Issue
+move_base fails to generate valid paths when the obstruction is very close to the Robot
