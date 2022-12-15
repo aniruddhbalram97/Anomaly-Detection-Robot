@@ -40,7 +40,7 @@
 
 /**
  * @brief ADRobot class
- * 
+ *
  */
 class ADRobot {
  public:

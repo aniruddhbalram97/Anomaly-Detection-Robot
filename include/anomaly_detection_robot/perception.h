@@ -37,6 +37,10 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <cv_bridge/cv_bridge.h>
 
+/**
+ * @brief Initializing Perception Class
+*/
+
 class Perception {
  public:
     explicit Perception(ros::NodeHandle);

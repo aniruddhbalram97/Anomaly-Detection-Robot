@@ -35,12 +35,19 @@
 
 #include "anomaly_detection_robot/perception.h"
 
-
+/**
+ * @brief Constructing Perception class. Also, instantiates ImageTransport 
+ * @param nh ros node handle
+*/
 Perception::Perception(ros::NodeHandle nh) : it(nh) {
   ROS_INFO("Perception object created");
   sub = it.subscribe("/camera/rgb/image_raw", 1, &Perception::camera_callback, this); 
 }
 
+/**
+ * @brief This callback is called continuously when the image data is published on "/camera/rgb/image_raw"
+ * @param msg Contains image related data of type sensor_msgs::ImageConstPtr
+*/
 void Perception::camera_callback(const sensor_msgs::ImageConstPtr& msg) {
     // recieve images from camera
     try{
@@ -51,6 +58,10 @@ void Perception::camera_callback(const sensor_msgs::ImageConstPtr& msg) {
     }
 }
 
+/**
+ * @brief Implements a basic contouring algorithm for anomaly detection
+ * @return bool 
+*/
 bool Perception::anomaly_detected() {
    // Create a gray scale image
    cv::Mat gray_img; 

@@ -56,9 +56,8 @@ Navigation::Navigation(ros::NodeHandle nh) {
  * @brief Send robot to location
  *
  */
-void Navigation::go_to_location() {
-  // function to move to location
 
+void Navigation::go_to_location() {
   location_counter_++;
 
   if (location_counter_ < map_locations.size()) {

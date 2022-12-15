@@ -36,22 +36,20 @@
 #include "anomaly_detection_robot/ADRobot.h"
 
 /**
- * @brief Construct a new ADRobot::ADRobot object
+ * @brief Construct a new ADRobot::ADRobot object. 'navigator', 'perception' classes along with state_ are also instantiated
+ * 
+ * @param nh It is the ros node handle which contains publisher/subscribe method
  *
  */
 ADRobot::ADRobot(ros::NodeHandle nh) : navigator(nh), perception(nh), state_(INIT) {
   ROS_INFO("Created ADRobot object");
-  // add subscribers and publishers
 }
 
 /**
- * @brief run main loop
+ * @brief This function runs on loop continuously and calls various state machine parameters to move the object
  *
  */
 void ADRobot::run() {
-  // run simulation here
-  // ROS_WARN("RUNNING ........");
-  // std::cout << state_ << "\n";
   switch (state_) {
     case INIT:
       state_ = IDLE;
