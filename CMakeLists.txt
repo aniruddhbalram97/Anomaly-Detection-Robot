@@ -63,11 +63,11 @@ if(CATKIN_ENABLE_TESTING)
 
   target_link_libraries(
      the_rostest 
-     ${catkin_LIBRARIES}
-     ${OpenCV_LIBS}
+     adr_library
      nav_library
      perception_library
-     adr_library
+     ${catkin_LIBRARIES}
+     ${OpenCV_LIBS}
    )
  endif()
 
