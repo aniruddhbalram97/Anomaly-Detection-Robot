@@ -45,6 +45,8 @@ ADRobot::ADRobot(ros::NodeHandle nh) : navigator(nh), state_(INIT) {
     
 }
 
+
+
 /**
  * @brief run main loop
  * 
@@ -93,5 +95,10 @@ void ADRobot::run() {
             break;
         
     }
+
     
+}
+
+enum ADRobot::States ADRobot::get_state() {
+    return state_;
 }

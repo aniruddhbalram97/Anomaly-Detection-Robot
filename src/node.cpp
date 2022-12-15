@@ -35,6 +35,14 @@
 
 #include <anomaly_detection_robot/ADRobot.h>
 
+/**
+ * @brief Main function that creates the node handler
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
+
 
 int main(int argc, char *argv[]) {
     // start node

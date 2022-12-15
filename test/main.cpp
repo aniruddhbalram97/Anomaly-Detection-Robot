@@ -26,10 +26,10 @@
  ********************************************************************/
 /**
  *  @file    main.cpp
- *  @author  Smit Dumore
- *  @date    11/30/2022
+ *  @author  Badrinarayanan Raghunathan Srikumar
+ *  @date    12/14/2022
  *  @version 0.1
- *  @brief 
+ *  @brief Main function for testing
  *
  */
 

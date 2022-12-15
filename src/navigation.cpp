@@ -56,8 +56,6 @@ Navigation::Navigation(ros::NodeHandle nh) {
 /**
  * @brief Send robot to location
  * 
- * @return true 
- * @return false 
  */
 void Navigation::go_to_location() {
     //function to move to location
@@ -74,8 +72,13 @@ void Navigation::go_to_location() {
     }
 }
 
+/**
+ * @brief Functions to populate locations to the robot
+ * 
+ */
+
 void Navigation::populate_locations() {
-    std::vector<double> map_x = {0.5, 0.5, -0.5, -0.5, -1.0 };
+    std::vector<double> map_x = {0.5, 0.5, -0.5, -0.5, -1.0};
     std::vector<double> map_y = {0.5, -0.5, -0.5, 0.5, -0.5};
     int size = map_x.size();
 
@@ -94,11 +97,17 @@ void Navigation::populate_locations() {
     ROS_INFO("Locations populated");
 }
 
+/**
+ * @brief Check if goal is reached
+ * 
+ * @return true 
+ * @return false 
+ */
 bool Navigation::navigation_status() {
 
     double x_sq = std::pow(curr_pose_.position.x - goal_pose_.pose.position.x, 2);
     
-    double y_sq = std::pow(curr_pose_.position.y- goal_pose_.pose.position.y, 2);
+    double y_sq = std::pow(curr_pose_.position.y - goal_pose_.pose.position.y, 2);
 
     double distance = std::sqrt(x_sq + y_sq);
     
@@ -106,6 +115,11 @@ bool Navigation::navigation_status() {
     return false;
 }
 
+/**
+ * @brief callback function for subscriber
+ * 
+ * @param pose 
+ */
 void Navigation::pose_callback(const nav_msgs::Odometry &pose) {
     curr_pose_ = pose.pose.pose;
     //ROS_INFO("POSE X .. %f", curr_pose_.position.x);
