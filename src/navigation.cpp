@@ -29,7 +29,7 @@
  *  @author  Smit Dumore
  *  @date    11/30/2022
  *  @version 0.1
- *  @brief  
+ *  @brief
  *
  */
 
@@ -37,91 +37,89 @@
 
 /**
  * @brief Construct a new Navigation:: Navigation object
- * 
+ *
  */
 Navigation::Navigation(ros::NodeHandle nh) {
+  ROS_INFO("Navigation object created");
 
-    ROS_INFO("Navigation object created");
+  location_counter_ = -1;
 
-    location_counter_ = -1;
+  move_base_goal_pub_ =
+      nh.advertise<geometry_msgs::PoseStamped>("/move_base_simple/goal", 10);
 
-    move_base_goal_pub_ = nh.advertise<geometry_msgs::PoseStamped>(
-                                        "/move_base_simple/goal", 10);
-    
-    pose_sub_ = nh.subscribe("/odom", 10, &Navigation::pose_callback, this);
+  pose_sub_ = nh.subscribe("/odom", 10, &Navigation::pose_callback, this);
 
-    populate_locations();
+  populate_locations();
 }
 
 /**
  * @brief Send robot to location
- * 
+ *
  */
 void Navigation::go_to_location() {
-    //function to move to location
+  // function to move to location
 
-    location_counter_++;
+  location_counter_++;
 
-    if(location_counter_ < map_locations.size()) {
-        geometry_msgs::PoseStamped curr_goal = map_locations[location_counter_];
-        move_base_goal_pub_.publish(curr_goal);
-        goal_pose_ = curr_goal;
-        ROS_INFO("New Goal Published");
-    }else{
-        ROS_ERROR("no goals left");
-    }
+  if (location_counter_ < map_locations.size()) {
+    geometry_msgs::PoseStamped curr_goal = map_locations[location_counter_];
+    move_base_goal_pub_.publish(curr_goal);
+    goal_pose_ = curr_goal;
+    ROS_INFO("New Goal Published");
+  } else {
+    ROS_ERROR("no goals left");
+  }
 }
 
 /**
  * @brief Functions to populate locations to the robot
- * 
+ *
  */
 
 void Navigation::populate_locations() {
-    std::vector<double> map_x = {0.5, 0.5, -0.5, -0.5, -1.0};
-    std::vector<double> map_y = {0.5, -0.5, -0.5, 0.5, -0.5};
-    int size = map_x.size();
+  std::vector<double> map_x = {0.5, 0.5, -0.5, -0.5, -1.0};
+  std::vector<double> map_y = {0.5, -0.5, -0.5, 0.5, -0.5};
+  int size = map_x.size();
 
-    for(int i=0; i < size; i++) {
-        geometry_msgs::PoseStamped curr_pose;
-        curr_pose.header.frame_id = "map";
-        curr_pose.pose.position.x = map_x[i];
-        curr_pose.pose.position.y = map_y[i];
-        curr_pose.pose.orientation.w = 1.0;
-        curr_pose.pose.orientation.x = 0.0;
-        curr_pose.pose.orientation.y = 0.0;
-        curr_pose.pose.orientation.z = 0.0;
-        map_locations.push_back(curr_pose);
-    }
+  for (int i = 0; i < size; i++) {
+    geometry_msgs::PoseStamped curr_pose;
+    curr_pose.header.frame_id = "map";
+    curr_pose.pose.position.x = map_x[i];
+    curr_pose.pose.position.y = map_y[i];
+    curr_pose.pose.orientation.w = 1.0;
+    curr_pose.pose.orientation.x = 0.0;
+    curr_pose.pose.orientation.y = 0.0;
+    curr_pose.pose.orientation.z = 0.0;
+    map_locations.push_back(curr_pose);
+  }
 
-    ROS_INFO("Locations populated");
+  ROS_INFO("Locations populated");
 }
 
 /**
  * @brief Check if goal is reached
- * 
- * @return true 
- * @return false 
+ *
+ * @return true
+ * @return false
  */
 bool Navigation::navigation_status() {
+  double x_sq = std::pow(curr_pose_.position.x - goal_pose_.pose.position.x, 2);
 
-    double x_sq = std::pow(curr_pose_.position.x - goal_pose_.pose.position.x, 2);
-    
-    double y_sq = std::pow(curr_pose_.position.y - goal_pose_.pose.position.y, 2);
+  double y_sq = std::pow(curr_pose_.position.y - goal_pose_.pose.position.y, 2);
 
-    double distance = std::sqrt(x_sq + y_sq);
-    
-    if (distance <= 0.1) return true;
-    return false;
+  double distance = std::sqrt(x_sq + y_sq);
+
+  if (distance <= 0.1) return true;
+  return false;
 }
 
 /**
  * @brief callback function for subscriber
- * 
- * @param pose 
+ *
+ * @param pose
  */
 void Navigation::pose_callback(const nav_msgs::Odometry &pose) {
-    curr_pose_ = pose.pose.pose;
-    //ROS_INFO("POSE X .. %f", curr_pose_.position.x);
-    //ROS_INFO("POSE Y .. %f", curr_pose_.position.y);
+  curr_pose_ = pose.pose.pose;
+  // ROS_INFO("POSE X .. %f", curr_pose_.position.x);
+  // ROS_INFO("POSE Y .. %f", curr_pose_.position.y);
 }

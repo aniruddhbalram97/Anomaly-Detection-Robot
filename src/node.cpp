@@ -29,7 +29,7 @@
  *  @author  Smit Dumore
  *  @date    11/30/2022
  *  @version 0.1
- *  @brief  
+ *  @brief
  *
  */
 
@@ -37,25 +37,24 @@
 
 /**
  * @brief Main function that creates the node handler
- * 
- * @param argc 
- * @param argv 
- * @return int 
+ *
+ * @param argc
+ * @param argv
+ * @return int
  */
 
-
 int main(int argc, char *argv[]) {
-    // start node
-    ros::init(argc, argv, "ADRobot_node");
-    ros::NodeHandle nh;
-    ADRobot ADR(nh);
+  // start node
+  ros::init(argc, argv, "ADRobot_node");
+  ros::NodeHandle nh;
+  ADRobot ADR(nh);
 
-    ros::Rate r(10);
-    while (ros::ok()) {
-        ADR.run();
-        r.sleep();
-        ros::spinOnce();
-    }
+  ros::Rate r(10);
+  while (ros::ok()) {
+    ADR.run();
+    r.sleep();
+    ros::spinOnce();
+  }
 
-    return 0;
+  return 0;
 }

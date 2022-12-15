@@ -29,7 +29,7 @@
  *  @author  Smit Dumore
  *  @date    11/30/2022
  *  @version 0.1
- *  @brief 
+ *  @brief
  *
  */
 
@@ -37,68 +37,61 @@
 
 /**
  * @brief Construct a new ADRobot::ADRobot object
- * 
+ *
  */
 ADRobot::ADRobot(ros::NodeHandle nh) : navigator(nh), state_(INIT) {
-    ROS_INFO("Created ADRobot object");
-    // add subscribers and publishers
-    
+  ROS_INFO("Created ADRobot object");
+  // add subscribers and publishers
 }
-
-
 
 /**
  * @brief run main loop
- * 
+ *
  */
 void ADRobot::run() {
-    // run simulation here
-    //ROS_WARN("RUNNING ........");
-    //std::cout << state_ << "\n";
-    switch(state_) {
-        case INIT:
-            state_ = IDLE;
-            break;
+  // run simulation here
+  // ROS_WARN("RUNNING ........");
+  // std::cout << state_ << "\n";
+  switch (state_) {
+    case INIT:
+      state_ = IDLE;
+      break;
 
-        case IDLE:
-            navigator.go_to_location();
-            state_ = MOVING_TO_GOAL;
-            break;
+    case IDLE:
+      navigator.go_to_location();
+      state_ = MOVING_TO_GOAL;
+      break;
 
-        case MOVING_TO_GOAL:
-           
-            std::cout << navigator.location_counter_ << "size " << navigator.location_size_ << "\n";
+    case MOVING_TO_GOAL:
 
-            if(navigator.navigation_status()){
-                ROS_INFO("[MOVING TO GOAL] goal reached");
-                state_ = PERCEPTION;
-                if(navigator.location_counter_ == navigator.location_size_) {
-                    state_ = STOP;
-                }
-            }
-            break;
+      std::cout << navigator.location_counter_ << "size "
+                << navigator.location_size_ << "\n";
 
-        case PERCEPTION:
-            if(detectAnomaly.is_anomaly()){
-                ROS_ERROR("ANOMALY FOUND ..");
+      if (navigator.navigation_status()) {
+        ROS_INFO("[MOVING TO GOAL] goal reached");
+        state_ = PERCEPTION;
+        if (navigator.location_counter_ == navigator.location_size_) {
+          state_ = STOP;
+        }
+      }
+      break;
 
-            }else{
-                ROS_INFO("NO ANOMALY");
-            }
-            
-            state_ = IDLE;
+    case PERCEPTION:
+      if (detectAnomaly.is_anomaly()) {
+        ROS_ERROR("ANOMALY FOUND ..");
 
-            break;
+      } else {
+        ROS_INFO("NO ANOMALY");
+      }
 
-        case STOP:
-            ROS_INFO("eND ,.............");
-            break;
-        
-    }
+      state_ = IDLE;
 
-    
+      break;
+
+    case STOP:
+      ROS_INFO("eND ,.............");
+      break;
+  }
 }
 
-enum ADRobot::States ADRobot::get_state() {
-    return state_;
-}
+enum ADRobot::States ADRobot::get_state() { return state_; }
