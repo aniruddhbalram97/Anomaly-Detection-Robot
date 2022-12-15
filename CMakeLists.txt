@@ -59,7 +59,9 @@ if(CATKIN_ENABLE_TESTING)
      test/all_tests.test 
      test/main.cpp
      test/navigation_test.cpp
-     test/ADRobot_test.cpp)
+     test/ADRobot_test.cpp
+     test/perception_test.cpp
+     )
 
   target_link_libraries(
      the_rostest 
