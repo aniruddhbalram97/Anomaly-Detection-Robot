@@ -40,7 +40,7 @@ Perception::Perception(ros::NodeHandle nh) {
   ROS_INFO("Perception object created");
 }
 
-void Perception::camera_callback() {
+void Perception::camera_callback(sensor_msgs::ImageConstPtr& msg) {
     // recieve images from camera
     try{
         cv::imshow("Image Display", cv_bridge::toCvShare(msg,"bgr8")->image);
