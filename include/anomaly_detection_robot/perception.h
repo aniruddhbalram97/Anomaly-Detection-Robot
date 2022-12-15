@@ -32,10 +32,14 @@
  *  @brief  
  *
  */
+#include <ros/ros.h>
+#include <image_transport/image_transport.h>
+#include <opencv2/highgui/highgui.hpp>
+#include <cv_bridge/cv_bridge.h>
 
 class Perception {
  public:
-    void camera_callback();
+    void camera_callback(sensor_msgs::ImageConstPtr&);
 
  private:
     bool is_object_present = false;

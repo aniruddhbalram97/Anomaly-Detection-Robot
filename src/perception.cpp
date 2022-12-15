@@ -38,5 +38,11 @@
 
 void Perception::camera_callback() {
     // recieve images from camera
+    try{
+        cv::imshow("Image Display", cv_bridge::toCvShare(msg,"bgr8")->image);
+    }
+    catch (cv_bridge::Exception& e) {
+        ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
+    }
 }
 
