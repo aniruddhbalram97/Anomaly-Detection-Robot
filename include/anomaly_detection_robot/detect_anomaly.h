@@ -32,18 +32,21 @@
  *  @brief  
  *
  */
-
+#pragma once
 #include <geometry_msgs/Point.h>
 
+/**
+ * @brief Class Detect_anomaly
+ * 
+ */
 class Detect_anomaly {
  public:
     Detect_anomaly();
     bool is_anomaly();
     
  private:
-    geometry_msgs::Point anomaly_x;
-    geometry_msgs::Point anomaly_y;
-    double set_x;
-    double set_y;
-
+   geometry_msgs::Point anomaly_x;
+   geometry_msgs::Point anomaly_y;
+   double set_x;
+   double set_y;
 };

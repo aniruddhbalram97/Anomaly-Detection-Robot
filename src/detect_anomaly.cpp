@@ -35,7 +35,19 @@
 
 #include "anomaly_detection_robot/detect_anomaly.h"
 
+/**
+ * @brief Construct a new Detect_anomaly::Detect_anomaly object
+ * 
+ */
+Detect_anomaly::Detect_anomaly() { }
 
+/**
+ * @brief check anomaly is present or not
+ * 
+ * @return true 
+ * @return false 
+ */
 bool Detect_anomaly::is_anomaly() {
-   // function to check if anomaly is present or not
+// function to check if anomaly is present or not
+return true;
 }
