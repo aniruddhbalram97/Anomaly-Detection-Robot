@@ -55,6 +55,7 @@ class ADRobot {
         STOP,
         PERCEPTION
     };
+    enum States get_state();
 
  private:
     Navigation navigator;

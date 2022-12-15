@@ -58,7 +58,7 @@ class Navigation {
     ros::Publisher move_base_goal_pub_;
     ros::Subscriber pose_sub_;
     int location_counter_ = -1;
-    const int location_size_ = 5;
+    const int location_size_ = 6;
     
  private:
     std::vector<geometry_msgs::PoseStamped> map_locations;
