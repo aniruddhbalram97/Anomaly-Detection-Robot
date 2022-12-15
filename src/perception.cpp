@@ -28,7 +28,7 @@
  *  @file    perception.cpp
  *  @author  Aniruddh Balram
  *  @date    12/10/2022
- *  @version 0.1
+ *  @version 0.3
  *  @brief  
  *
  */
@@ -36,8 +36,9 @@
 #include "anomaly_detection_robot/perception.h"
 
 
-Perception::Perception(ros::NodeHandle nh) {
+Perception::Perception(ros::NodeHandle nh) : it(nh) {
   ROS_INFO("Perception object created");
+  sub = it.subscribe("/camera/rgb/image_raw", 1, &Perception::camera_callback, this); 
 }
 
 void Perception::camera_callback(sensor_msgs::ImageConstPtr& msg) {

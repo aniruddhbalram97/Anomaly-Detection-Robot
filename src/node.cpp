@@ -28,7 +28,7 @@
  *  @file    node.cpp
  *  @author  Aniruddh Balram
  *  @date    12/10/2022
- *  @version 0.1
+ *  @version 0.3
  *  @brief
  *
  */

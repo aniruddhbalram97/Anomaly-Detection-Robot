@@ -28,7 +28,7 @@
  *  @file    perception.h
  *  @author  Aniruddh Balram
  *  @date    12/10/2022
- *  @version 0.1
+ *  @version 0.3
  *  @brief  
  *
  */
@@ -41,6 +41,8 @@ class Perception {
  public:
     void camera_callback(sensor_msgs::ImageConstPtr&);
     explicit Perception(ros::NodeHandle);
+    image_transport::ImageTransport it;
+    image_transport::Subscriber sub;
 
  private:
     bool is_object_present = false;
