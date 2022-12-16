@@ -1,5 +1,5 @@
 /********************************************************************
- * Copyright (c) 2022 Smit Dumore
+ * Copyright (c) 2022 Aniruddh Balram
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,9 +26,9 @@
  ********************************************************************/
 /**
  *  @file    ADRobot.cpp
- *  @author  Smit Dumore
- *  @date    11/30/2022
- *  @version 0.1
+ *  @authors  Aniruddh Balram, Smit Dumore, Badrinarayanan Raghunathan Srikumar
+ *  @date    12/10/2022
+ *  @version 0.3
  *  @brief
  *
  */
@@ -36,22 +36,23 @@
 #include "anomaly_detection_robot/ADRobot.h"
 
 /**
- * @brief Construct a new ADRobot::ADRobot object
+ * @brief Construct a new ADRobot::ADRobot object. 'navigator', 'perception'
+ * classes along with state_ are also instantiated
+ *
+ * @param nh It is the ros node handle which contains publisher/subscribe method
  *
  */
-ADRobot::ADRobot(ros::NodeHandle nh) : navigator(nh), state_(INIT) {
+ADRobot::ADRobot(ros::NodeHandle nh)
+    : navigator(nh), perception(nh), state_(INIT) {
   ROS_INFO("Created ADRobot object");
-  // add subscribers and publishers
 }
 
 /**
- * @brief run main loop
+ * @brief This function runs on loop continuously and calls various state
+ * machine parameters to move the object
  *
  */
 void ADRobot::run() {
-  // run simulation here
-  // ROS_WARN("RUNNING ........");
-  // std::cout << state_ << "\n";
   switch (state_) {
     case INIT:
       state_ = IDLE;
@@ -68,7 +69,7 @@ void ADRobot::run() {
                 << navigator.location_size_ << "\n";
 
       if (navigator.navigation_status()) {
-        ROS_INFO("[MOVING TO GOAL] goal reached");
+        ROS_INFO("[MOVING TO GOAL] - goal reached");
         state_ = PERCEPTION;
         if (navigator.location_counter_ == navigator.location_size_) {
           state_ = STOP;
@@ -77,11 +78,11 @@ void ADRobot::run() {
       break;
 
     case PERCEPTION:
-      if (detectAnomaly.is_anomaly()) {
-        ROS_ERROR("ANOMALY FOUND ..");
+      if (perception.anomaly_detected(perception.image)) {
+        ROS_ERROR("[ANOMALY FOUND]");
 
       } else {
-        ROS_INFO("NO ANOMALY");
+        ROS_INFO("[NO ANOMALY]");
       }
 
       state_ = IDLE;
@@ -89,7 +90,7 @@ void ADRobot::run() {
       break;
 
     case STOP:
-      ROS_INFO("eND ,.............");
+      ROS_INFO("[END]");
       break;
   }
 }

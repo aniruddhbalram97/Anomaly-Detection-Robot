@@ -1,5 +1,4 @@
 Done processing ./src/ADRobot.cpp
-Done processing ./src/detect_anomaly.cpp
 Done processing ./src/navigation.cpp
 Done processing ./src/node.cpp
 Done processing ./src/perception.cpp

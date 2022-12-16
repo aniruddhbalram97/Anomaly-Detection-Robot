@@ -1,5 +1,5 @@
 /********************************************************************
- * Copyright (c) 2022 Smit Dumore
+ * Copyright (c) 2022 Aniruddh Balram
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,9 +26,9 @@
  ********************************************************************/
 /**
  *  @file    navigation.cpp
- *  @author  Smit Dumore
- *  @date    11/30/2022
- *  @version 0.1
+ *  @authors  Aniruddh Balram, Smit Dumore, Badrinarayanan Raghunathan Srikumar
+ *  @date    12/10/2022
+ *  @version 0.3
  *  @brief
  *
  */
@@ -56,9 +56,8 @@ Navigation::Navigation(ros::NodeHandle nh) {
  * @brief Send robot to location
  *
  */
-void Navigation::go_to_location() {
-  // function to move to location
 
+void Navigation::go_to_location() {
   location_counter_++;
 
   if (location_counter_ < map_locations.size()) {
@@ -77,8 +76,8 @@ void Navigation::go_to_location() {
  */
 
 void Navigation::populate_locations() {
-  std::vector<double> map_x = {0.5, 0.5, -0.5, -0.5, -1.0};
-  std::vector<double> map_y = {0.5, -0.5, -0.5, 0.5, -0.5};
+  std::vector<double> map_x = {-2.0, 0.38, 5.21, -6.82, -4.02};
+  std::vector<double> map_y = {1.26, 2.79, -0.86, 2.66, -1.02};
   int size = map_x.size();
 
   for (int i = 0; i < size; i++) {
@@ -109,7 +108,7 @@ bool Navigation::navigation_status() {
 
   double distance = std::sqrt(x_sq + y_sq);
 
-  if (distance <= 0.1) return true;
+  if (distance <= 0.45) return true;
   return false;
 }
 
@@ -120,6 +119,4 @@ bool Navigation::navigation_status() {
  */
 void Navigation::pose_callback(const nav_msgs::Odometry &pose) {
   curr_pose_ = pose.pose.pose;
-  // ROS_INFO("POSE X .. %f", curr_pose_.position.x);
-  // ROS_INFO("POSE Y .. %f", curr_pose_.position.y);
 }

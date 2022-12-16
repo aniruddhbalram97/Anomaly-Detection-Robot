@@ -1,5 +1,5 @@
 /********************************************************************
- * Copyright (c) 2022 Smit Dumore
+ * Copyright (c) 2022 Aniruddh Balram
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,9 +26,9 @@
  ********************************************************************/
 /**
  *  @file    ADRobot.h
- *  @author  Smit Dumore
- *  @date    11/30/2022
- *  @version 0.1
+ *  @author  Aniruddh Balram
+ *  @date    12/10/2022
+ *  @version 0.3
  *  @brief  
  *
  */
@@ -36,12 +36,11 @@
 #pragma once
 #include <ros/ros.h>
 #include "anomaly_detection_robot/navigation.h"
-#include "anomaly_detection_robot/detect_anomaly.h"
 #include "anomaly_detection_robot/perception.h"
 
 /**
  * @brief ADRobot class
- * 
+ *
  */
 class ADRobot {
  public:
@@ -56,12 +55,10 @@ class ADRobot {
         PERCEPTION
     };
     enum States get_state();
-
+    States state_;
  private:
     Navigation navigator;
-    Detect_anomaly detectAnomaly;
-
-    States state_;
+    Perception perception;
     ros::NodeHandle* nh_;
 
 };

@@ -27,7 +27,7 @@
 
 /**
  * @file navigation_test.cpp
- * @author Badrinarayanan Raghunathan Srikumar
+ * @author Aniruddh Balram, Smit Dumore, Badrinarayanan Raghunathan Srikumar
  * @brief Test blocks to test navigation class
  * @version 0.1
  * @date 2022-12-14
@@ -35,14 +35,6 @@
  * @copyright Copyright (c) 2022
  * 
  */
-
-
-
-
-
-
-
-
 
 #include <gtest/gtest.h>
 #include <ros/ros.h>
@@ -94,4 +86,10 @@ TEST(nav_class_test, test_nav_status) {
     Navigation Navigation(nh);
     bool val = true;
     EXPECT_EQ(val, Navigation.navigation_status());
+}
+
+TEST(nav_class_test, test_go_to_location) {
+    ros :: NodeHandle nh;
+    Navigation Navigation(nh);
+    EXPECT_NO_THROW(Navigation.go_to_location());
 }

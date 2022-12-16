@@ -1,5 +1,5 @@
 /********************************************************************
- * Copyright (c) 2022 Smit Dumore
+ * Copyright (c) 2022 Aniruddh Balram
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,17 +26,32 @@
  ********************************************************************/
 /**
  *  @file    perception.h
- *  @author  Smit Dumore
- *  @date    11/30/2022
- *  @version 0.1
+ *  @author  Aniruddh Balram
+ *  @date    12/10/2022
+ *  @version 0.3
  *  @brief  
  *
  */
+#include <ros/ros.h>
+#include <image_transport/image_transport.h>
+#include <opencv2/highgui/highgui.hpp>
+#include <cv_bridge/cv_bridge.h>
+
+/**
+ * @brief Initializing Perception Class
+*/
 
 class Perception {
  public:
-    void camera_callback();
+    explicit Perception(ros::NodeHandle);
+    void camera_callback(const sensor_msgs::ImageConstPtr&);
+    bool anomaly_detected(cv::Mat&);
+    cv::Mat image;
+    image_transport::ImageTransport it;
+    image_transport::Subscriber sub;
 
  private:
     bool is_object_present = false;
+    std::vector<std::vector<cv::Point>> contours;
+    std::vector<cv::Vec4i> hierarchy_of_contours;
 };

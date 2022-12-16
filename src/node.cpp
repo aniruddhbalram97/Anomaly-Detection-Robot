@@ -1,5 +1,5 @@
 /********************************************************************
- * Copyright (c) 2022 Smit Dumore
+ * Copyright (c) 2022 Aniruddh Balram
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,9 +26,9 @@
  ********************************************************************/
 /**
  *  @file    node.cpp
- *  @author  Smit Dumore
- *  @date    11/30/2022
- *  @version 0.1
+ *  @authors  Aniruddh Balram, Smit Dumore, Badrinarayanan Raghunathan Srikumar
+ *  @date    12/10/2022
+ *  @version 0.3
  *  @brief
  *
  */

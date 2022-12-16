@@ -14,9 +14,12 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   nav_msgs
   sensor_msgs
+  image_transport
+  cv_bridge
 )
 
 
+find_package(OpenCV REQUIRED)
 catkin_package()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
@@ -24,11 +27,11 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 add_library(adr_library src/ADRobot.cpp)
 add_library(nav_library src/navigation.cpp)
 add_library(perception_library src/perception.cpp)
-add_library(anomaly_library src/detect_anomaly.cpp)
 
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 add_executable(ADRobot_node src/node.cpp)
@@ -39,8 +42,8 @@ target_link_libraries(ADRobot_node
   adr_library  
   nav_library
   perception_library
-  anomaly_library
   ${catkin_LIBRARIES}
+  ${OpenCV_LIBS}
 )
 
 ###########
@@ -56,15 +59,17 @@ if(CATKIN_ENABLE_TESTING)
      test/all_tests.test 
      test/main.cpp
      test/navigation_test.cpp
-     test/ADRobot_test.cpp)
+     test/ADRobot_test.cpp
+     test/perception_test.cpp
+     )
 
   target_link_libraries(
      the_rostest 
-     ${catkin_LIBRARIES}
+     adr_library
      nav_library
      perception_library
-     adr_library
-     anomaly_library
+     ${catkin_LIBRARIES}
+     ${OpenCV_LIBS}
    )
  endif()
 

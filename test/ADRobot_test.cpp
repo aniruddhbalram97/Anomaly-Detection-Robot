@@ -27,7 +27,7 @@
 
 /**
  * @file ADRobot_test.cpp
- * @author Badrinarayanan Raghunathan Srikumar
+ * @authors Aniruddh Balram, Smit Dumore, Badrinarayanan Raghunathan Srikumar
  * @brief TEST stubs to test ADRobot class
  * @version 0.1
  * @date 2022-12-14
@@ -35,6 +35,7 @@
  * @copyright Copyright (c) 2022
  * 
  */
+
 #include <gtest/gtest.h>
 #include <ros/ros.h>
 #include <std_msgs/String.h>
@@ -57,7 +58,45 @@ TEST(ADRobot_class_test, init_state_test) {
     enum States {
         INIT
     };
-    States robot_state;
-    EXPECT_EQ(robot_state,ADR.get_state());
+    States robot_state = INIT;
+    EXPECT_EQ(robot_state, ADR.get_state());
 
+}
+
+TEST(ADRobot_class_test, run_test_0) {
+    ros::NodeHandle nh;
+    ADRobot ADR(nh);
+    EXPECT_NO_THROW (ADR.run());
+}
+
+TEST(ADRobot_class_test, run_test_1) {
+    ros::NodeHandle nh;
+    ADRobot ADR(nh);
+    ADRobot::States states_;
+    ADR.state_= ADR.States::INIT;
+    EXPECT_NO_THROW (ADR.run());
+}
+
+TEST(ADRobot_class_test, run_test_2) {
+    ros::NodeHandle nh;
+    ADRobot ADR(nh);
+    ADRobot::States states_;
+    ADR.state_= ADR.States::MOVING_TO_GOAL;
+    EXPECT_NO_THROW (ADR.run());
+}
+
+TEST(ADRobot_class_test, run_test_3) {
+    ros::NodeHandle nh;
+    ADRobot ADR(nh);
+    ADRobot::States states_;
+    ADR.state_= ADR.States::STOP;
+    EXPECT_NO_THROW (ADR.run());
+}
+
+TEST(ADRobot_class_test, run_test_4) {
+    ros::NodeHandle nh;
+    ADRobot ADR(nh);
+    ADRobot::States states_;
+    ADR.state_= ADR.States::PERCEPTION;
+    EXPECT_THROW (ADR.run(), std::exception);
 }
