@@ -54,3 +54,4 @@ TEST(perception_class_test, test_contour_function) {
     bool value = perception.anomaly_detected(img);
     EXPECT_EQ(value, true);
 }
+
