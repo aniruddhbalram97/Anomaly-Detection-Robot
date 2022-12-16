@@ -63,8 +63,32 @@ TEST(ADRobot_class_test, init_state_test) {
 
 }
 
-TEST(ADRobot_class_test, run_test) {
+TEST(ADRobot_class_test, run_test_0) {
     ros::NodeHandle nh;
     ADRobot ADR(nh);
+    EXPECT_NO_THROW (ADR.run());
+}
+
+TEST(ADRobot_class_test, run_test_1) {
+    ros::NodeHandle nh;
+    ADRobot ADR(nh);
+    ADRobot::States states_;
+    ADR.state_= ADR.States::INIT;
+    EXPECT_NO_THROW (ADR.run());
+}
+
+TEST(ADRobot_class_test, run_test_2) {
+    ros::NodeHandle nh;
+    ADRobot ADR(nh);
+    ADRobot::States states_;
+    ADR.state_= ADR.States::MOVING_TO_GOAL;
+    EXPECT_NO_THROW (ADR.run());
+}
+
+TEST(ADRobot_class_test, run_test_3) {
+    ros::NodeHandle nh;
+    ADRobot ADR(nh);
+    ADRobot::States states_;
+    ADR.state_= ADR.States::STOP;
     EXPECT_NO_THROW (ADR.run());
 }

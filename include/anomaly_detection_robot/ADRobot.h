@@ -55,11 +55,10 @@ class ADRobot {
         PERCEPTION
     };
     enum States get_state();
-
+    States state_;
  private:
     Navigation navigator;
     Perception perception;
-    States state_;
     ros::NodeHandle* nh_;
 
 };
