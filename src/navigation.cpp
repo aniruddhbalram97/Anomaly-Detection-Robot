@@ -76,8 +76,8 @@ void Navigation::go_to_location() {
  */
 
 void Navigation::populate_locations() {
-  std::vector<double> map_x = {0.5, 0.5, -0.5, -0.5, -1.0};
-  std::vector<double> map_y = {0.5, -0.5, -0.5, 0.5, -0.5};
+  std::vector<double> map_x = {-2.0, 0.38, 5.21, -6.82, -4.02};
+  std::vector<double> map_y = {1.26, 2.79, -0.86, 2.66, -1.02};
   int size = map_x.size();
 
   for (int i = 0; i < size; i++) {
@@ -108,7 +108,7 @@ bool Navigation::navigation_status() {
 
   double distance = std::sqrt(x_sq + y_sq);
 
-  if (distance <= 0.1) return true;
+  if (distance <= 0.45) return true;
   return false;
 }
 
