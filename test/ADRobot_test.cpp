@@ -92,3 +92,11 @@ TEST(ADRobot_class_test, run_test_3) {
     ADR.state_= ADR.States::STOP;
     EXPECT_NO_THROW (ADR.run());
 }
+
+TEST(ADRobot_class_test, run_test_4) {
+    ros::NodeHandle nh;
+    ADRobot ADR(nh);
+    ADRobot::States states_;
+    ADR.state_= ADR.States::PERCEPTION;
+    EXPECT_THROW (ADR.run(), std::exception);
+}
