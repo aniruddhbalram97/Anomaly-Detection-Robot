@@ -58,7 +58,13 @@ TEST(ADRobot_class_test, init_state_test) {
     enum States {
         INIT
     };
-    States robot_state;
-    EXPECT_EQ(robot_state,ADR.get_state());
+    States robot_state = INIT;
+    EXPECT_EQ(robot_state, ADR.get_state());
 
+}
+
+TEST(ADRobot_class_test, run_test) {
+    ros::NodeHandle nh;
+    ADRobot ADR(nh);
+    EXPECT_NO_THROW (ADR.run());
 }

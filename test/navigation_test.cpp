@@ -87,3 +87,9 @@ TEST(nav_class_test, test_nav_status) {
     bool val = true;
     EXPECT_EQ(val, Navigation.navigation_status());
 }
+
+TEST(nav_class_test, test_go_to_location) {
+    ros :: NodeHandle nh;
+    Navigation Navigation(nh);
+    EXPECT_NO_THROW(Navigation.go_to_location());
+}
